@@ -10,7 +10,11 @@ Future<Resp> exec(String cmd, List<String> args) async {
   // return await shell.run(cmd);
   try {
     var currentPath = Platform.environment['PATH'] ?? '';
-    var newPath = '/usr/local/bin:$currentPath';
+    var newPath = currentPath;
+
+    if (Platform.isMacOS) {
+      newPath = '/usr/local/bin:$currentPath';
+    }
 
     final process = await Process.start(
       cmd,

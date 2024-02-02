@@ -12,9 +12,6 @@ String getTrayImagePath(String imageName) {
   return Platform.isWindows ? 'assets/$imageName.ico' : 'assets/$imageName.png';
 }
 
-String getImagePath(String imageName) {
-  return Platform.isWindows ? 'assets/$imageName.bmp' : 'assets/$imageName.png';
-}
 
 class TrayScreen extends StatefulWidget {
   const TrayScreen({Key? key}) : super(key: key);
@@ -130,7 +127,7 @@ class _TrayScreenState extends State<TrayScreen> {
     await _menuSimple.buildFrom([
       MenuItemLabel(
         label: 'Change Context Menu',
-        image: getImagePath('app_icon'),
+        image: getTrayImagePath('app_icon'),
         onClicked: (menuItem) {
           debugPrint("Change Context Menu");
 
@@ -141,15 +138,15 @@ class _TrayScreenState extends State<TrayScreen> {
       MenuSeparator(),
       MenuItemLabel(
           label: 'Show',
-          image: getImagePath('app_icon'),
+          image: getTrayImagePath('app_icon'),
           onClicked: (menuItem) => _appWindow.show()),
       MenuItemLabel(
           label: 'Hide',
-          image: getImagePath('app_icon'),
+          image: getTrayImagePath('app_icon'),
           onClicked: (menuItem) => _appWindow.hide()),
       MenuItemLabel(
         label: 'Exit',
-        image: getImagePath('app_icon'),
+        image: getTrayImagePath('app_icon'),
         onClicked: (menuItem) => _appWindow.close(),
       ),
     ]);
