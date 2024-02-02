@@ -11,4 +11,4 @@ PRODUCT_NAME = kloudlite
 PRODUCT_BUNDLE_IDENTIFIER = io.kloudlite.vpncli
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2023 io.kloudlite.vpncli. All rights reserved.

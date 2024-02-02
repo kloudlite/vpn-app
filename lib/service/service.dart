@@ -6,12 +6,17 @@ import 'package:provider/provider.dart';
 void startService(BuildContext ctx) async {
   final app = Alfred();
 
+  if (Provider.of<VPNProvider>(ctx, listen: false).serviceStatus) {
+    return;
+  }
+
+  var setStaus = Provider.of<VPNProvider>(ctx, listen: false).setSvcStatus;
+
   var vctx = Provider.of<VPNProvider>(ctx, listen: false);
 
   app.get('/healthy', (req, res) => 'ok');
   app.post('/act', (req, res) async {
     final body = await req.bodyAsJsonMap;
-    debugPrint(body.toString());
 
     var action = body["action"] as String;
     var data = body["data"];
@@ -31,4 +36,5 @@ void startService(BuildContext ctx) async {
   });
 
   await app.listen(17171);
+  setStaus(true);
 }

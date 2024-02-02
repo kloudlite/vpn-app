@@ -1,16 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:kloudlite_vpn/utils/parse.dart';
 import 'package:wireguard_flutter/wireguard_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 class VPNProvider extends ChangeNotifier {
   final wireguard = WireGuardFlutter.instance;
+  bool serviceStatus = false;
 
   String status = "disconnected";
   String connectionError = "";
 
-  late String name;
+  setSvcStatus(bool svcStatus) {
+    serviceStatus = true;
+    notifyListeners();
+  }
 
-  init() {
+  init() async {
     wireguard.vpnStageSnapshot.listen((event) {
       debugPrint("status changed $event");
       status = event.name;
@@ -18,25 +25,38 @@ class VPNProvider extends ChangeNotifier {
     });
   }
 
-  // Future<void> initialize() async {
-  //   try {
-  //     await wireguard.initialize(interfaceName: name);
-  //     debugPrint("initialize success");
-  //   } catch (error, stack) {
-  //     debugPrint("failed to initialize: $error\n$stack");
-  //   }
-  // }
-
   Future<void> connect(String conf) async {
-    debugPrint("here");
+
+
+    if (Platform.isWindows) {
+      try {
+        var uuid = const Uuid();
+        await wireguard.initialize(interfaceName: "wg_vpn${uuid.v4().substring(0,5)}");
+        debugPrint("initialize success");
+      } catch (error, stack) {
+        debugPrint("failed to initialize: $error\n$stack");
+      }
+    }
+
+    debugPrint(conf);
+
     var cfg = parseConfig(conf);
 
     var endpoint = cfg["Peer"]!["Endpoint"].toString();
+
+    debugPrint(endpoint);
+
+    var id = "kloudlite";
+
+    if (Platform.isMacOS) {
+      id = "io.kloudlite.vpncli.WGExtension";
+    }
+
     try {
       await wireguard.startVpn(
         serverAddress: endpoint,
         wgQuickConfig: conf,
-        providerBundleIdentifier: 'io.kloudlite.vpncli.WGExtension',
+        providerBundleIdentifier: id,
       );
 
       status = "connected";
