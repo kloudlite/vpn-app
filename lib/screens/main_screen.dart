@@ -21,7 +21,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     Provider.of<VPNProvider>(context, listen: false).init();
 
-    var future = Future.delayed(const Duration(milliseconds: 100));
+    var future = Future.delayed(const Duration(seconds: 3));
 
     future.asStream().listen((d) {
       AppWindow().close();
@@ -36,21 +36,27 @@ class _MainScreenState extends State<MainScreen> {
     _timer?.cancel();
   }
 
-  clickHandle() {
-    debugPrint("hello world");
-  }
-
-  String output = "";
-
   @override
   Widget build(BuildContext context) {
     vctx = Provider.of<VPNProvider>(context, listen: false);
 
-    return const Column(
-      children: [
-        TrayScreen(),
-        Text("Kloudlite"),
-      ],
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const TrayScreen(),
+          const Text(
+            "Welcome to Kloudlite",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          Container(height: 10),
+          const Text(
+            "We are making everything ready for you, please wait...",
+            style: TextStyle(color: Colors.grey, fontSize: 14),
+          )
+        ],
+      ),
     );
   }
 }

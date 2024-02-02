@@ -5,7 +5,11 @@ PODS:
   - path_provider_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - screen_retriever (0.0.1):
+    - FlutterMacOS
   - system_tray (0.0.1):
+    - FlutterMacOS
+  - window_manager (0.2.0):
     - FlutterMacOS
   - wireguard_flutter (0.0.1):
     - Flutter
@@ -15,7 +19,9 @@ DEPENDENCIES:
   - flutter_window_close (from `Flutter/ephemeral/.symlinks/plugins/flutter_window_close/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - path_provider_foundation (from `Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin`)
+  - screen_retriever (from `Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos`)
   - system_tray (from `Flutter/ephemeral/.symlinks/plugins/system_tray/macos`)
+  - window_manager (from `Flutter/ephemeral/.symlinks/plugins/window_manager/macos`)
   - wireguard_flutter (from `Flutter/ephemeral/.symlinks/plugins/wireguard_flutter/darwin`)
 
 EXTERNAL SOURCES:
@@ -25,8 +31,12 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral
   path_provider_foundation:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_foundation/darwin
+  screen_retriever:
+    :path: Flutter/ephemeral/.symlinks/plugins/screen_retriever/macos
   system_tray:
     :path: Flutter/ephemeral/.symlinks/plugins/system_tray/macos
+  window_manager:
+    :path: Flutter/ephemeral/.symlinks/plugins/window_manager/macos
   wireguard_flutter:
     :path: Flutter/ephemeral/.symlinks/plugins/wireguard_flutter/darwin
 
@@ -34,7 +44,9 @@ SPEC CHECKSUMS:
   flutter_window_close: ee4a6b81ca6fafe93b7cba48b0a18976e3f48e39
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
+  screen_retriever: 59634572a57080243dd1bf715e55b6c54f241a38
   system_tray: e53c972838c69589ff2e77d6d3abfd71332f9e5d
+  window_manager: 3a1844359a6295ab1e47659b1a777e36773cd6e8
   wireguard_flutter: 1e75469eaf86ae553566b6847bce070e3b3c315b
 
 PODFILE CHECKSUM: a78e73d4f3e93deb971b05a14aaf288280563573

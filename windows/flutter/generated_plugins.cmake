@@ -4,7 +4,9 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   flutter_window_close
+  screen_retriever
   system_tray
+  window_manager
   wireguard_flutter
 )
 
