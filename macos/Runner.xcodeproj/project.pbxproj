@@ -102,9 +102,6 @@
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		9C63BCDA9E77FCD3FDAD1A20 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		A241446D2B3044C400941DBE /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
-		A24144702B3044C500941DBE /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
-		A24144722B3044C500941DBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A24144732B3044C500941DBE /* WGExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WGExtension.entitlements; sourceTree = "<group>"; };
 		A241449E2B3048D100941DBE /* WGExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WGExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A24144A12B3048D100941DBE /* PacketTunnelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTunnelProvider.swift; sourceTree = "<group>"; };
 		A24144A32B3048D100941DBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -161,7 +158,6 @@
 			children = (
 				33FAB671232836740065AC1E /* Runner */,
 				33CEB47122A05771004F2AC0 /* Flutter */,
-				A241446F2B3044C500941DBE /* WGExtension */,
 				A24144A02B3048D100941DBE /* WGExtension */,
 				33CC10EE2044A3C60003C045 /* Products */,
 				D73912EC22F37F3D000D13A0 /* Frameworks */,
@@ -211,16 +207,6 @@
 				33BA886A226E78AF003329D5 /* Configs */,
 			);
 			path = Runner;
-			sourceTree = "<group>";
-		};
-		A241446F2B3044C500941DBE /* WGExtension */ = {
-			isa = PBXGroup;
-			children = (
-				A24144702B3044C500941DBE /* PacketTunnelProvider.swift */,
-				A24144722B3044C500941DBE /* Info.plist */,
-				A24144732B3044C500941DBE /* WGExtension.entitlements */,
-			);
-			path = WGExtension;
 			sourceTree = "<group>";
 		};
 		A24144A02B3048D100941DBE /* WGExtension */ = {

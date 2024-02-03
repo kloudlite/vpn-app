@@ -24,17 +24,20 @@ class _TrayScreenState extends State<TrayScreen> {
   final AppWindow _appWindow = AppWindow();
   final SystemTray _systemTray = SystemTray();
   final Menu _menuMain = Menu();
-  final Menu _menuSimple = Menu();
 
   Timer? _timer;
 
-  bool _toogleMenu = true;
   String vpnStatus = "false";
   VPNProvider? vctx;
 
   @override
   void initState() {
     super.initState();
+    _systemTray.initSystemTray(iconPath: getTrayImagePath("app_icon_inactive"));
+    if (Platform.isWindows || Platform.isMacOS) {
+      startService(context);
+    }
+    
   }
 
   @override
@@ -59,22 +62,31 @@ class _TrayScreenState extends State<TrayScreen> {
     if (status == "connected") {
       await vctx!.disconnect();
     }
-
     exit(0);
   }
 
-  Future<void> initSystemTray() async {
-    // We first init the systray menu and then add the menu entries
-    await _systemTray.initSystemTray(iconPath: getTrayImagePath('app_icon'));
+  Future<void> buildSystemTray() async {
+    
+    String getIcon() {
+      switch (vctx!.status) {
+        case "disconnecting":
+        case "connected":
+          return "app_icon_active";
+        case "connecting":
+        case "disconnected":
+        default:
+          return "app_icon_inactive";
+      }
+    }
+
     _systemTray.setToolTip("Kloudlite Client");
+    await _systemTray.setImage(getTrayImagePath(getIcon()));
 
     // handle system tray event
     _systemTray.registerSystemTrayEventHandler((eventName) {
       debugPrint("eventName: $eventName");
-      if (eventName == kSystemTrayEventClick) {
-        Platform.isWindows ? _appWindow.show() : _systemTray.popUpContextMenu();
-      } else if (eventName == kSystemTrayEventRightClick) {
-        Platform.isWindows ? _systemTray.popUpContextMenu() : _appWindow.show();
+      if (eventName == kSystemTrayEventClick || eventName == kSystemTrayEventRightClick) {
+        _systemTray.popUpContextMenu(); 
       }
     });
 
@@ -123,46 +135,13 @@ class _TrayScreenState extends State<TrayScreen> {
             label: 'Quit Kloudlite', onClicked: (menuItem) => closeHandler()),
       ],
     );
-
-    await _menuSimple.buildFrom([
-      MenuItemLabel(
-        label: 'Change Context Menu',
-        image: getTrayImagePath('app_icon'),
-        onClicked: (menuItem) {
-          debugPrint("Change Context Menu");
-
-          _toogleMenu = !_toogleMenu;
-          _systemTray.setContextMenu(_toogleMenu ? _menuMain : _menuSimple);
-        },
-      ),
-      MenuSeparator(),
-      MenuItemLabel(
-          label: 'Show',
-          image: getTrayImagePath('app_icon'),
-          onClicked: (menuItem) => _appWindow.show()),
-      MenuItemLabel(
-          label: 'Hide',
-          image: getTrayImagePath('app_icon'),
-          onClicked: (menuItem) => _appWindow.hide()),
-      MenuItemLabel(
-        label: 'Exit',
-        image: getTrayImagePath('app_icon'),
-        onClicked: (menuItem) => _appWindow.close(),
-      ),
-    ]);
-
     _systemTray.setContextMenu(_menuMain);
   }
 
   @override
   Widget build(BuildContext context) {
-    initSystemTray();
-
-    if (Platform.isWindows || Platform.isMacOS) {
-      startService(context);
-    }
-
     vctx = Provider.of<VPNProvider>(context, listen: true);
+    buildSystemTray();
     return Container();
   }
 }
