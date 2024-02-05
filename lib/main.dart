@@ -25,6 +25,12 @@ void main() async {
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
     await windowManager.focus();
+
+    var future = Future.delayed(const Duration(seconds: 3));
+
+    future.asStream().listen((d) async {
+      await windowManager.hide();
+    });
   });
 
   runApp(

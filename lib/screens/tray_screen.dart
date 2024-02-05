@@ -12,7 +12,6 @@ String getTrayImagePath(String imageName) {
   return Platform.isWindows ? 'assets/$imageName.ico' : 'assets/$imageName.png';
 }
 
-
 class TrayScreen extends StatefulWidget {
   const TrayScreen({Key? key}) : super(key: key);
 
@@ -21,7 +20,6 @@ class TrayScreen extends StatefulWidget {
 }
 
 class _TrayScreenState extends State<TrayScreen> {
-  final AppWindow _appWindow = AppWindow();
   final SystemTray _systemTray = SystemTray();
   final Menu _menuMain = Menu();
 
@@ -37,7 +35,6 @@ class _TrayScreenState extends State<TrayScreen> {
     if (Platform.isWindows || Platform.isMacOS) {
       startService(context);
     }
-    
   }
 
   @override
@@ -66,7 +63,6 @@ class _TrayScreenState extends State<TrayScreen> {
   }
 
   Future<void> buildSystemTray() async {
-    
     String getIcon() {
       switch (vctx!.status) {
         case "disconnecting":
@@ -85,8 +81,9 @@ class _TrayScreenState extends State<TrayScreen> {
     // handle system tray event
     _systemTray.registerSystemTrayEventHandler((eventName) {
       debugPrint("eventName: $eventName");
-      if (eventName == kSystemTrayEventClick || eventName == kSystemTrayEventRightClick) {
-        _systemTray.popUpContextMenu(); 
+      if (eventName == kSystemTrayEventClick ||
+          eventName == kSystemTrayEventRightClick) {
+        _systemTray.popUpContextMenu();
       }
     });
 

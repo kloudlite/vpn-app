@@ -26,25 +26,19 @@ class VPNProvider extends ChangeNotifier {
   }
 
   Future<void> connect(String conf) async {
-
-
     if (Platform.isWindows) {
       try {
         var uuid = const Uuid();
-        await wireguard.initialize(interfaceName: "wg_vpn${uuid.v4().substring(0,5)}");
+        await wireguard.initialize(
+            interfaceName: "wg_vpn${uuid.v4().substring(0, 5)}");
         debugPrint("initialize success");
       } catch (error, stack) {
         debugPrint("failed to initialize: $error\n$stack");
       }
     }
-
-    debugPrint(conf);
-
     var cfg = parseConfig(conf);
 
     var endpoint = cfg["Peer"]!["Endpoint"].toString();
-
-    debugPrint(endpoint);
 
     var id = "kloudlite";
 
