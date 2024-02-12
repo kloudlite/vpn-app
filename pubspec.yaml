@@ -23,15 +23,17 @@ dependencies:
   provider: ^6.1.1
   window_manager: ^0.3.8
   uuid: ^3.0.7
+  flowder: ^0.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_launcher_icons: ^0.9.2
+  flutter_launcher_icons: ^0.13.1
 
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
+  tailwind_cli: ^0.7.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -47,6 +49,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/app_icon_active.png
+    - assets/icon.png
     - assets/app_icon_inactive.png
     - assets/app_icon_active.ico
     - assets/app_icon_inactive.ico
@@ -79,7 +82,10 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  macos: true
-  windows: true
-  image_path: "assets/app_icon.png"
+  macos: 
+    generate: true
+    image_path: "assets/icon.png"
+  # windows: true
+  image_path: "assets/icon.png"
+  adaptive_icon_foreground: "assets/icon.png"
   adaptive_icon_background: "#FFFFFF"

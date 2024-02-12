@@ -9,6 +9,7 @@
 	<key>com.apple.security.application-groups</key>
 	<array>
 		<string>group.io.kloudlite.vpncli</string>
+		<string>group.io.kloudlite.mac.app</string>
 	</array>
 </dict>
 </plist>
