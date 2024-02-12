@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:process_run/shell.dart';
 
@@ -68,18 +67,17 @@ class _DownloadClientScreenState extends State<DownloadClientScreen> {
           const SizedBox(height: 40),
           RoundedButton(
               label: isDownloading ? "Installing..." : "Install",
-              
               onPressed: () async {
                 setState(() {
                   isDownloading = true;
                 });
-                
+
                 var shell = Shell();
                 await shell.run("""
 #!/bin/bash
 /usr/bin/osascript -e 'do shell script "curl https://kl.kloudlite.io/kloudlite/kl! | bash && curl 'https://kl.kloudlite.io/kloudlite/kl!?source=kli' | bash" with administrator privileges'
 """);
-setState(() {
+                setState(() {
                   isDownloading = false;
                 });
               },

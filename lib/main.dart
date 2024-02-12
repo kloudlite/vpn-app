@@ -1,80 +1,78 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_window_close/flutter_window_close.dart';
 import 'package:kloudlite_vpn/components/main.dart';
-import 'package:kloudlite_vpn/screens/setup_flows.dart';
-import 'package:process_run/shell.dart';
-// import 'package:flutter_window_close/flutter_window_close.dart';
-// import 'package:kloudlite_vpn/screens/main_screen.dart';
-// import 'package:kloudlite_vpn/service/vpn_provider.dart';
-// import 'package:provider/provider.dart';
-// import 'package:system_tray/system_tray.dart';
+import 'package:kloudlite_vpn/screens/main_screen.dart';
+import 'package:kloudlite_vpn/service/vpn_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:system_tray/system_tray.dart';
+// import 'package:kloudlite_vpn/screens/setup_flows.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'utils/exec.dart';
+// import 'utils/exec.dart';
 
 void main() async {
-  // if (Platform.isWindows) {
-  //   FlutterWindowClose.setWindowShouldCloseHandler(() async {
-  //     AppWindow().hide();
-  //     return false;
-  //   });
-  // }
+  if (Platform.isWindows) {
+    FlutterWindowClose.setWindowShouldCloseHandler(() async {
+      AppWindow().hide();
+      return false;
+    });
+  }
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  // WindowOptions windowOptions = const WindowOptions(
-  //   size: Size(300, 480),
-  //   center: true,
-  //   backgroundColor: Colors.transparent,
-  // );
-  // windowManager.waitUntilReadyToShow(windowOptions, () async {
-  //   await windowManager.show();
-  //   await windowManager.focus();
-  //   var future = Future.delayed(const Duration(seconds: 3));
-  //   future.asStream().listen((d) async {
-  //     await windowManager.hide();
-  //   });
-  // });
+  WindowOptions windowOptions = const WindowOptions(
+    // size: Size(300, 480),
+    center: true,
+    backgroundColor: Colors.transparent,
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+    var future = Future.delayed(const Duration(seconds: 3));
+    future.asStream().listen((d) async {
+      await windowManager.hide();
+    });
+  });
 
   // check if command line tools installed
-  var cliInstalled = true;
-  if (Platform.isIOS || Platform.isAndroid) {
-    
-  } else {
-    var resp = await exec("kl", []);
-    cliInstalled = (resp.err=="");
-  }
-  
+  // var cliInstalled = true;
+  // if (Platform.isIOS || Platform.isAndroid) {
+  // } else {
+  //   var resp = await exec("kl", []);
+  //   cliInstalled = (resp.err == "");
+  // }
 
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: (cliInstalled ? const ConnectedScreen() : const SetupScreen()),
-      ),
-    ),
-  );
   // runApp(
-  //   MultiProvider(
-  //     providers: [ChangeNotifierProvider(create: (ctx) => VPNProvider())],
-  //     child: MaterialApp(
-  //       key: TwService.appKey,
-  //       debugShowCheckedModeBanner: false,
-  //       color: Colors.transparent,
-  //       home: Scaffold(
-  //         backgroundColor: Colors.transparent,
-  //         body: Container(
-  //           decoration: BoxDecoration(
-  //             color: Colors.white,
-  //             borderRadius: BorderRadius.circular(20.0),
-  //           ),
-  //           child: const MainScreen(),
-  //         ),
-  //       ),
+  //   const MaterialApp(
+  //     debugShowCheckedModeBanner: false,
+  //     home: Scaffold(
+  //       backgroundColor: Colors.white,
+  //       // body: (cliInstalled ? const ConnectedScreen() : const SetupScreen()),
+  //       body: MainScreen(),
   //     ),
   //   ),
   // );
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (ctx) => VPNProvider())],
+      child: MaterialApp(
+        // key: TwService.appKey,
+        debugShowCheckedModeBanner: false,
+        color: Colors.transparent,
+        home: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: const MainScreen(),
+          ),
+        ),
+      ),
+    ),
+  );
 }
 
 class ConnectedScreen extends StatelessWidget {
@@ -175,11 +173,13 @@ class ConnectedScreen extends StatelessWidget {
                                                     ),
                                                     const Spacer(),
                                                     IconButton(
-                                                      color: Colors.grey,
+                                                        color: Colors.grey,
                                                         onPressed: () {
-                                                          Navigator.pop(context);
+                                                          Navigator.pop(
+                                                              context);
                                                         },
-                                                        icon: const Icon(Icons.close))
+                                                        icon: const Icon(
+                                                            Icons.close))
                                                   ],
                                                 ),
                                               ),
@@ -187,18 +187,18 @@ class ConnectedScreen extends StatelessWidget {
                                                   padding:
                                                       const EdgeInsets.all(5),
                                                   child: const InputBox()),
-                                                  Container(
-                                                    padding: const EdgeInsets.all(5),
-                                                    child: const Text(
-                                                      style: TextStyle(
-                                                        color: Colors.grey,
-                                                      ),
-                                                      """
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child: const Text(
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                    ),
+                                                    """
 Ex: 8080:8080
 
-This will allow all the services/devices in the cluster to access servers runnin on your device."""
-),
-                                                  ),
+This will allow all the services/devices in the cluster to access servers runnin on your device."""),
+                                              ),
                                             ],
                                           ),
                                         );
